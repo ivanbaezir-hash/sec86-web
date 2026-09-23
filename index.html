@@ -339,6 +339,33 @@
       line-height: 1.5;
     }
 
+
+    .notice-content {
+      min-width: 0;
+    }
+
+    .notice-image {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 12px;
+      display: block;
+    }
+
+    .notice.destacado-aviso {
+      background: #fffaf0;
+      margin: 8px -10px;
+      padding: 16px 10px;
+      border-radius: 12px;
+    }
+
+    .notice-status {
+      color: var(--gray);
+      font-size: 13px;
+      padding: 18px 0;
+    }
+
     /* =========================
        DATOS DEL PLANTEL
     ========================= */
@@ -751,61 +778,11 @@
 
           <div class="panel-title">
             <h3>📢 Avisos recientes</h3>
-            <a href="#">VER TODOS</a>
+            <a href="#avisos">ACTUALIZADOS</a>
           </div>
 
-
-          <div class="notice">
-
-            <div class="date">
-              <div class="day">23</div>
-              <div class="month">SEP</div>
-            </div>
-
-            <div>
-              <h4>Ciclo Escolar 2026–2027</h4>
-              <p>
-                Consulta en este espacio los comunicados e información
-                oficial de la Dirección del Plantel.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="notice">
-
-            <div class="date">
-              <div class="day">18</div>
-              <div class="month">SEP</div>
-            </div>
-
-            <div>
-              <h4>Información para madres, padres y tutores</h4>
-              <p>
-                En este sitio se publicarán avisos y orientaciones
-                relevantes para nuestra comunidad escolar.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="notice">
-
-            <div class="date">
-              <div class="day">01</div>
-              <div class="month">SEP</div>
-            </div>
-
-            <div>
-              <h4>Inicio del ciclo escolar</h4>
-              <p>
-                Bienvenida a las alumnas, alumnos y familias de la
-                Escuela Secundaria No. 86.
-              </p>
-            </div>
-
+          <div id="avisosDinamicos">
+            <p class="notice-status">Cargando avisos...</p>
           </div>
 
         </div>
@@ -1177,6 +1154,103 @@
 
   </footer>
 
+
+
+  <script>
+    const API_AVISOS = 'https://script.google.com/macros/s/AKfycbysVfizXX1W4GTlo6T3vadNAlYGSAsuAeO3UiUCrQdugF7IiE-hPs2rGxxAwrLh9dpj9A/exec?accion=avisos';
+
+    document.addEventListener('DOMContentLoaded', cargarAvisosPublicos);
+
+    async function cargarAvisosPublicos() {
+      const contenedor = document.getElementById('avisosDinamicos');
+
+      try {
+        const respuesta = await fetch(API_AVISOS, { cache: 'no-store' });
+
+        if (!respuesta.ok) {
+          throw new Error('No fue posible consultar los avisos.');
+        }
+
+        const datos = await respuesta.json();
+
+        if (!datos.ok) {
+          throw new Error(datos.mensaje || 'No fue posible cargar los avisos.');
+        }
+
+        const avisos = Array.isArray(datos.avisos) ? datos.avisos : [];
+
+        if (!avisos.length) {
+          contenedor.innerHTML =
+            '<p class="notice-status">No hay avisos publicados por el momento.</p>';
+          return;
+        }
+
+        contenedor.innerHTML = avisos.map(crearAvisoHTML).join('');
+
+      } catch (error) {
+        console.error(error);
+        contenedor.innerHTML =
+          '<p class="notice-status">Los avisos no están disponibles en este momento. Intenta nuevamente más tarde.</p>';
+      }
+    }
+
+    function crearAvisoHTML(aviso) {
+      const fecha = separarFecha(aviso.fecha);
+      const claseDestacado = aviso.destacado ? ' destacado-aviso' : '';
+
+      const imagen = aviso.imagenUrl
+        ? `<img class="notice-image"
+                src="${escaparAtributo(aviso.imagenUrl)}"
+                alt="${escaparAtributo(aviso.titulo || 'Imagen del aviso')}"
+                loading="lazy">`
+        : '';
+
+      return `
+        <article class="notice${claseDestacado}">
+          <div class="date">
+            <div class="day">${fecha.dia}</div>
+            <div class="month">${fecha.mes}</div>
+          </div>
+
+          <div class="notice-content">
+            <h4>${escaparHTML(aviso.titulo)}</h4>
+            <p>${escaparHTML(aviso.contenido)}</p>
+            ${imagen}
+          </div>
+        </article>
+      `;
+    }
+
+    function separarFecha(fechaTexto) {
+      const meses = [
+        'ENE','FEB','MAR','ABR','MAY','JUN',
+        'JUL','AGO','SEP','OCT','NOV','DIC'
+      ];
+
+      const partes = String(fechaTexto || '').split('-');
+
+      if (partes.length !== 3) {
+        return { dia: '--', mes: '---' };
+      }
+
+      const mes = Number(partes[1]);
+
+      return {
+        dia: String(partes[2]).padStart(2, '0'),
+        mes: meses[mes - 1] || '---'
+      };
+    }
+
+    function escaparHTML(valor) {
+      const div = document.createElement('div');
+      div.textContent = valor == null ? '' : String(valor);
+      return div.innerHTML;
+    }
+
+    function escaparAtributo(valor) {
+      return escaparHTML(valor).replace(/`/g, '&#96;');
+    }
+  </script>
 
 </body>
 </html>
