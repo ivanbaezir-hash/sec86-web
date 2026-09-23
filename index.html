@@ -1,564 +1,803 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Secundaria 86 | República de Venezuela | Turno Vespertino</title>
-
-  <style>
-    :root{
-      --azul-oscuro:#082d5b;
-      --azul:#087dbd;
-      --azul-claro:#eaf6fc;
-      --dorado:#f2c230;
-      --verde:#087640;
-      --blanco:#ffffff;
-      --fondo:#f5f8fb;
-      --texto:#142333;
-      --gris:#5d6b78;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:var(--fondo);
-      color:var(--texto);
-    }
-
-    /* ENCABEZADO */
-
-    header{
-      background:var(--azul-oscuro);
-      color:white;
-      position:sticky;
-      top:0;
-      z-index:100;
-      box-shadow:0 2px 10px rgba(0,0,0,.15);
-    }
-
-    .nav{
-      max-width:1180px;
-      margin:auto;
-      min-height:82px;
-      padding:10px 22px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-    }
-
-    .identidad{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
-    .identidad img{
-      width:64px;
-      height:64px;
-      object-fit:contain;
-    }
-
-    .nombre{
-      font-size:20px;
-      font-weight:800;
-      letter-spacing:.3px;
-    }
-
-    .subnombre{
-      display:block;
-      font-size:13px;
-      font-weight:normal;
-      margin-top:3px;
-      opacity:.9;
-    }
-
-    nav a{
-      color:white;
-      text-decoration:none;
-      margin-left:20px;
-      font-size:14px;
-      font-weight:bold;
-    }
-
-    nav a:hover{
-      color:var(--dorado);
-    }
-
-    /* PORTADA */
-
-    .hero{
-      background:
-        linear-gradient(120deg,
-        var(--azul-oscuro) 0%,
-        #07558b 52%,
-        var(--azul) 100%);
-      color:white;
-    }
-
-    .hero-contenido{
-      max-width:1180px;
-      margin:auto;
-      padding:70px 22px;
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      align-items:center;
-      gap:60px;
-    }
-
-    .etiqueta{
-      color:var(--dorado);
-      font-weight:800;
-      font-size:17px;
-      letter-spacing:.5px;
-    }
-
-    h1{
-      font-size:58px;
-      line-height:1.02;
-      margin:12px 0 18px;
-    }
-
-    .turno{
-      font-size:27px;
-      font-weight:700;
-      margin-bottom:18px;
-    }
-
-    .cct{
-      display:inline-block;
-      background:var(--dorado);
-      color:var(--azul-oscuro);
-      padding:10px 17px;
-      border-radius:30px;
-      font-weight:800;
-      margin-bottom:16px;
-    }
-
-    .descripcion{
-      max-width:650px;
-      font-size:17px;
-      line-height:1.6;
-      opacity:.95;
-    }
-
-    .hero-escudo{
-      text-align:center;
-    }
-
-    .hero-escudo img{
-      width:min(330px,80%);
-      max-height:390px;
-      object-fit:contain;
-      filter:drop-shadow(0 15px 18px rgba(0,0,0,.25));
-    }
-
-    /* CONTENIDO */
-
-    section{
-      max-width:1180px;
-      margin:auto;
-      padding:55px 22px;
-    }
-
-    h2{
-      color:var(--azul-oscuro);
-      font-size:34px;
-      margin:0 0 8px;
-    }
-
-    .intro{
-      color:var(--gris);
-      margin-bottom:30px;
-      font-size:16px;
-    }
-
-    /* TARJETAS */
-
-    .servicios{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:20px;
-    }
-
-    .tarjeta{
-      background:white;
-      border-radius:16px;
-      padding:25px;
-      border-top:5px solid var(--azul);
-      box-shadow:0 8px 25px rgba(8,45,91,.10);
-      transition:.2s;
-    }
-
-    .tarjeta:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 30px rgba(8,45,91,.16);
-    }
-
-    .icono{
-      width:50px;
-      height:50px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:12px;
-      background:var(--azul-claro);
-      font-size:25px;
-      margin-bottom:16px;
-    }
-
-    .tarjeta h3{
-      color:var(--azul-oscuro);
-      font-size:20px;
-      margin:0 0 10px;
-    }
-
-    .tarjeta p{
-      color:var(--gris);
-      line-height:1.6;
-      min-height:75px;
-    }
-
-    .boton{
-      display:inline-block;
-      background:var(--azul-oscuro);
-      color:white;
-      text-decoration:none;
-      padding:10px 18px;
-      border-radius:8px;
-      font-weight:bold;
-      font-size:14px;
-    }
-
-    .boton:hover{
-      background:var(--azul);
-    }
-
-    .boton-dorado{
-      background:var(--dorado);
-      color:var(--azul-oscuro);
-    }
-
-    /* AVISOS */
-
-    .zona-avisos{
-      background:white;
-      max-width:none;
-    }
-
-    .avisos-interior{
-      max-width:1180px;
-      margin:auto;
-      padding:55px 22px;
-    }
-
-    .aviso{
-      border-left:5px solid var(--dorado);
-      background:var(--fondo);
-      padding:18px 22px;
-      border-radius:0 10px 10px 0;
-      margin-top:18px;
-    }
-
-    .aviso strong{
-      color:var(--azul-oscuro);
-    }
-
-    /* INFORMACIÓN */
-
-    .datos{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:22px;
-    }
-
-    .dato{
-      background:white;
-      border-radius:14px;
-      padding:24px;
-      box-shadow:0 7px 22px rgba(8,45,91,.08);
-    }
-
-    .dato h3{
-      color:var(--azul-oscuro);
-      margin-top:0;
-    }
-
-    .dato p{
-      line-height:1.7;
-      color:var(--gris);
-    }
-
-    /* FRANJA */
-
-    .franja{
-      background:var(--dorado);
-      color:var(--azul-oscuro);
-      text-align:center;
-      padding:30px 20px;
-    }
-
-    .franja strong{
-      font-size:22px;
-    }
-
-    /* PIE */
-
-    footer{
-      background:var(--azul-oscuro);
-      color:white;
-      text-align:center;
-      padding:32px 20px;
-      line-height:1.7;
-    }
-
-    footer img{
-      width:65px;
-      margin-bottom:12px;
-    }
-
-    .pie-secundario{
-      font-size:13px;
-      opacity:.8;
-      margin-top:8px;
-    }
-
-    /* CELULAR */
-
-    @media(max-width:850px){
-
-      nav{
-        display:none;
-      }
-
-      .hero-contenido{
-        grid-template-columns:1fr;
-        text-align:center;
-        padding:50px 22px;
-      }
-
-      h1{
-        font-size:43px;
-      }
-
-      .descripcion{
-        margin:auto;
-      }
-
-      .hero-escudo{
-        order:-1;
-      }
-
-      .hero-escudo img{
-        width:190px;
-      }
-
-      .servicios{
-        grid-template-columns:1fr;
-      }
-
-      .datos{
-        grid-template-columns:1fr;
-      }
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secundaria 86 | República de Venezuela</title>
+
+<style>
+:root{
+  --navy:#062d5b;
+  --navy2:#0b3e73;
+  --blue:#087fbd;
+  --blue2:#159bd2;
+  --gold:#f5c52e;
+  --green:#087640;
+  --light:#f4f8fb;
+  --white:#ffffff;
+  --text:#13263b;
+  --muted:#64748b;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:var(--light);
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+header{
+  background:var(--navy);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+
+.nav{
+  max-width:1180px;
+  margin:auto;
+  min-height:78px;
+  padding:9px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.brand img{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+}
+
+.brand-title{
+  font-size:19px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.brand-sub{
+  display:block;
+  font-size:12px;
+  font-weight:normal;
+  margin-top:3px;
+}
+
+.menu{
+  display:flex;
+  gap:27px;
+  align-items:center;
+}
+
+.menu a{
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+}
+
+.menu a:hover{
+  color:var(--gold);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 35%,
+    rgba(25,170,225,.40),
+    transparent 32%),
+    linear-gradient(120deg,
+    #062d5b 0%,
+    #07568a 55%,
+    #0789c4 100%);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  background:rgba(255,255,255,.035);
+  right:-180px;
+  top:-230px;
+}
+
+.hero-inner{
+  max-width:1180px;
+  min-height:470px;
+  margin:auto;
+  padding:58px 22px;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  align-items:center;
+  gap:60px;
+  color:white;
+}
+
+.hero-label{
+  color:var(--gold);
+  font-weight:900;
+  font-size:16px;
+  letter-spacing:.6px;
+}
+
+.hero h1{
+  font-size:57px;
+  line-height:1.03;
+  margin:12px 0 12px;
+}
+
+.hero h2{
+  margin:0 0 20px;
+  font-size:25px;
+  color:white;
+}
+
+.badge{
+  display:inline-block;
+  padding:10px 17px;
+  border-radius:25px;
+  background:var(--gold);
+  color:var(--navy);
+  font-weight:900;
+  margin-bottom:17px;
+}
+
+.hero p{
+  max-width:620px;
+  line-height:1.7;
+  font-size:16px;
+  margin:0;
+}
+
+.hero-logo{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.hero-logo img{
+  width:300px;
+  max-height:360px;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 20px rgba(0,0,0,.27));
+}
+
+/* =========================
+   ACCESOS RÁPIDOS
+========================= */
+
+.quick-wrap{
+  background:white;
+  border-bottom:1px solid #e6edf3;
+}
+
+.quick{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  transform:translateY(-28px);
+  box-shadow:0 13px 35px rgba(7,45,91,.13);
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.quick a{
+  min-height:120px;
+  text-decoration:none;
+  background:white;
+  color:var(--navy);
+  padding:19px 12px;
+  text-align:center;
+  border-right:1px solid #e5ebf0;
+  transition:.2s;
+}
+
+.quick a:last-child{
+  border-right:none;
+}
+
+.quick a:hover{
+  background:#eef8fd;
+  transform:translateY(-3px);
+}
+
+.quick-icon{
+  width:48px;
+  height:48px;
+  margin:0 auto 9px;
+  border-radius:50%;
+  background:#e6f4fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+}
+
+.quick strong{
+  display:block;
+  font-size:14px;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.container{
+  max-width:1180px;
+  margin:auto;
+  padding:50px 22px;
+}
+
+.section-title{
+  color:var(--navy);
+  font-size:32px;
+  margin:0 0 8px;
+}
+
+.section-sub{
+  color:var(--muted);
+  margin:0 0 28px;
+}
+
+/* =========================
+   PRINCIPAL
+========================= */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:1.55fr .85fr;
+  gap:28px;
+}
+
+/* AVISOS */
+
+.notice-box,
+.school-info{
+  background:white;
+  border-radius:16px;
+  box-shadow:0 7px 25px rgba(7,45,91,.08);
+  padding:27px;
+}
+
+.block-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #e8edf2;
+  padding-bottom:15px;
+  margin-bottom:5px;
+}
+
+.block-heading h3{
+  margin:0;
+  color:var(--navy);
+  font-size:21px;
+}
+
+.block-heading a{
+  color:var(--blue);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.notice{
+  display:grid;
+  grid-template-columns:65px 1fr;
+  gap:17px;
+  padding:20px 0;
+  border-bottom:1px solid #edf1f4;
+}
+
+.notice:last-child{
+  border-bottom:none;
+}
+
+.date{
+  background:var(--navy);
+  color:white;
+  border-radius:10px;
+  text-align:center;
+  overflow:hidden;
+  height:61px;
+}
+
+.date strong{
+  display:block;
+  font-size:23px;
+  padding-top:6px;
+}
+
+.date span{
+  display:block;
+  background:var(--gold);
+  color:var(--navy);
+  font-size:11px;
+  font-weight:bold;
+  padding:3px;
+}
+
+.notice h4{
+  margin:1px 0 5px;
+  color:var(--navy);
+  font-size:16px;
+}
+
+.notice p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* DATOS DEL PLANTEL */
+
+.school-info h3{
+  color:var(--navy);
+  margin-top:0;
+  font-size:21px;
+  border-bottom:1px solid #e8edf2;
+  padding-bottom:15px;
+}
+
+.info-row{
+  display:flex;
+  gap:13px;
+  padding:13px 0;
+  border-bottom:1px solid #edf1f4;
+}
+
+.info-row:last-child{
+  border-bottom:none;
+}
+
+.info-icon{
+  width:38px;
+  height:38px;
+  flex:none;
+  border-radius:9px;
+  background:#e8f5fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.info-row strong{
+  color:var(--navy);
+  display:block;
+  font-size:13px;
+  margin-bottom:3px;
+}
+
+.info-row span{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.45;
+}
+
+/* =========================
+   SERVICIOS
+========================= */
+
+.services-area{
+  background:#edf5fa;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  padding:25px;
+  border-top:4px solid var(--blue);
+  box-shadow:0 7px 22px rgba(7,45,91,.08);
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 13px 28px rgba(7,45,91,.14);
+}
+
+.card-icon{
+  width:50px;
+  height:50px;
+  border-radius:12px;
+  background:#e8f6fc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  margin-bottom:15px;
+}
+
+.card h3{
+  color:var(--navy);
+  margin:0 0 9px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+  min-height:68px;
+}
+
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  padding:10px 17px;
+  border-radius:8px;
+  background:var(--navy);
+  color:white;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.btn:hover{
+  background:var(--blue);
+}
+
+.btn.gold{
+  background:var(--gold);
+  color:var(--navy);
+}
+
+/* =========================
+   IDENTIDAD
+========================= */
+
+.identity{
+  background:
+    linear-gradient(rgba(6,45,91,.93),rgba(6,45,91,.93));
+  color:white;
+  text-align:center;
+}
+
+.identity-inner{
+  max-width:850px;
+  margin:auto;
+  padding:55px 22px;
+}
+
+.identity img{
+  width:95px;
+  margin-bottom:14px;
+}
+
+.identity blockquote{
+  margin:5px 0;
+  font-size:25px;
+  font-weight:bold;
+  font-style:italic;
+}
+
+.identity p{
+  opacity:.85;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:#041f40;
+  color:white;
+}
+
+.footer-inner{
+  max-width:1180px;
+  margin:auto;
+  padding:36px 22px;
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr;
+  gap:40px;
+}
+
+.footer-brand{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.footer-brand img{
+  width:72px;
+}
+
+footer h4{
+  color:var(--gold);
+  margin:0 0 12px;
+}
+
+footer p{
+  margin:4px 0;
+  opacity:.82;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.copyright{
+  border-top:1px solid rgba(255,255,255,.12);
+  text-align:center;
+  padding:15px;
+  font-size:12px;
+  opacity:.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+  .menu{
+    display:none;
+  }
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    text-align:center;
+    gap:25px;
+  }
+
+  .hero-logo{
+    order:-1;
+  }
+
+  .hero-logo img{
+    width:190px;
+  }
+
+  .hero h1{
+    font-size:43px;
+  }
+
+  .hero p{
+    margin:auto;
+  }
+
+  .quick{
+    grid-template-columns:1fr 1fr;
+    margin:0 15px;
+  }
+
+  .quick a:last-child{
+    grid-column:1 / -1;
+  }
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="nav">
 
-    <div class="identidad">
-      <img src="escudo-sec86.png" alt="Escudo Secundaria 86">
+<div class="nav">
 
-      <div class="nombre">
-        SECUNDARIA 86
-        <span class="subnombre">
-          República de Venezuela · Turno Vespertino
-        </span>
-      </div>
+  <div class="brand">
+
+    <img src="escudo-sec86.png"
+         alt="Escudo de la Escuela Secundaria 86">
+
+    <div class="brand-title">
+      SECUNDARIA 86
+
+      <span class="brand-sub">
+        República de Venezuela · Turno Vespertino
+      </span>
     </div>
 
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#avisos">Avisos</a>
-      <a href="#plantel">Plantel</a>
-    </nav>
-
   </div>
+
+  <div class="menu">
+    <a href="#inicio">Inicio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#avisos">Avisos</a>
+    <a href="#plantel">Nuestro Plantel</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+</div>
+
 </header>
 
 
+<!-- PORTADA -->
+
 <div class="hero" id="inicio">
 
-  <div class="hero-contenido">
+<div class="hero-inner">
 
-    <div>
+  <div>
 
-      <div class="etiqueta">
-        ESCUELA SECUNDARIA No. 86
-      </div>
-
-      <h1>
-        República de<br>
-        Venezuela
-      </h1>
-
-      <div class="turno">
-        Turno Vespertino
-      </div>
-
-      <div class="cct">
-        CCT 09DES4086E
-      </div>
-
-      <div class="descripcion">
-        Sitio institucional de información y acceso a los servicios
-        digitales de nuestra comunidad escolar.
-      </div>
-
+    <div class="hero-label">
+      ESCUELA SECUNDARIA No. 86
     </div>
 
-    <div class="hero-escudo">
-      <img src="escudo-sec86.png" alt="Escudo oficial Secundaria 86">
+    <h1>
+      República de<br>Venezuela
+    </h1>
+
+    <h2>
+      Turno Vespertino
+    </h2>
+
+    <div class="badge">
+      CCT 09DES4086E
     </div>
 
-  </div>
-
-</div>
-
-
-<section id="servicios">
-
-  <h2>Servicios escolares</h2>
-
-  <p class="intro">
-    Accesos e información para nuestra comunidad escolar.
-  </p>
-
-  <div class="servicios">
-
-    <div class="tarjeta">
-      <div class="icono">⚙️</div>
-      <h3>Gestión Escolar</h3>
-      <p>
-        Acceso al Sistema de Gestión Escolar y herramientas
-        administrativas del plantel.
-      </p>
-
-      <a class="boton"
-         href="https://gestion.sec86.com">
-         Ingresar
-      </a>
-    </div>
-
-
-    <div class="tarjeta">
-      <div class="icono">🪪</div>
-      <h3>Credencialización</h3>
-      <p>
-        Información sobre la credencial escolar, código QR y
-        servicios asociados para el ciclo escolar.
-      </p>
-
-      <a class="boton boton-dorado" href="#">
-        Información
-      </a>
-    </div>
-
-
-    <div class="tarjeta">
-      <div class="icono">🔔</div>
-      <h3>Alertas Escolares</h3>
-      <p>
-        Información para madres, padres y tutores sobre el
-        servicio de notificaciones escolares vía WhatsApp.
-      </p>
-
-      <a class="boton" href="#">
-        Consultar
-      </a>
-    </div>
-
-
-    <div class="tarjeta">
-      <div class="icono">📢</div>
-      <h3>Avisos</h3>
-      <p>
-        Comunicados e información relevante emitida por la
-        Dirección del Plantel.
-      </p>
-
-      <a class="boton" href="#avisos">
-        Ver avisos
-      </a>
-    </div>
-
-
-    <div class="tarjeta">
-      <div class="icono">👨‍👩‍👧</div>
-      <h3>Madres y Padres de Familia</h3>
-      <p>
-        Información institucional, orientaciones y recursos
-        dirigidos a las familias.
-      </p>
-
-      <a class="boton" href="#">
-        Consultar
-      </a>
-    </div>
-
-
-    <div class="tarjeta">
-      <div class="icono">🏫</div>
-      <h3>Comunidad Escolar</h3>
-      <p>
-        Información general y servicios de la Escuela
-        Secundaria No. 86.
-      </p>
-
-      <a class="boton" href="#plantel">
-        Conocer más
-      </a>
-    </div>
-
-  </div>
-
-</section>
-
-
-<div class="zona-avisos" id="avisos">
-
-  <div class="avisos-interior">
-
-    <h2>Avisos escolares</h2>
-
-    <p class="intro">
-      Información importante para nuestra comunidad.
+    <p>
+      Sitio institucional de información, comunicación
+      y acceso a los servicios digitales de nuestra
+      comunidad escolar.
     </p>
 
-    <div class="aviso">
-      <strong>Ciclo Escolar 2026–2027</strong><br>
-      Consulta periódicamente este espacio para conocer
-      comunicados oficiales de la Dirección del Plantel.
+  </div>
+
+  <div class="hero-logo">
+
+    <img src="escudo-sec86.png"
+         alt="Escudo Secundaria 86">
+
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- ACCESOS -->
+
+<div class="quick-wrap">
+
+<div class="quick">
+
+  <a href="https://gestion.sec86.com">
+    <div class="quick-icon">⚙️</div>
+    <strong>Gestión Escolar</strong>
+  </a>
+
+  <a href="#credencial">
+    <div class="quick-icon">▣</div>
+    <strong>Credencialización</strong>
+  </a>
+
+  <a href="#alertas">
+    <div class="quick-icon">🔔</div>
+    <strong>Alertas Escolares</strong>
+  </a>
+
+  <a href="#avisos">
+    <div class="quick-icon">▤</div>
+    <strong>Avisos</strong>
+  </a>
+
+  <a href="#familias">
+    <div class="quick-icon">👥</div>
+    <strong>Madres y Padres</strong>
+  </a>
+
+</div>
+
+</div>
+
+
+<!-- AVISOS + INFORMACION -->
+
+<div class="container">
+
+<div class="main-grid">
+
+<div class="notice-box" id="avisos">
+
+  <div class="block-heading">
+
+    <h3>📢 Avisos recientes</h3>
+
+    <a href="#avisos">
+      VER TODOS
+    </a>
+
+  </div>
+
+
+  <div class="notice">
+
+    <div class="date">
+      <strong>23</strong>
+      <span>SEP</span>
     </div>
 
-    <div class="aviso">
-      <strong>Credencialización escolar</strong><br>
-      Próximamente estará disponible en este sitio la información
-      relacionada con el proceso de credencialización y alertas escolares.
+    <div>
+      <h4>Ciclo Escolar 2026–2027</h4>
+
+      <p>
+        Consulta en este espacio los comunicados e
+        información oficial de la Dirección del Plantel.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="notice">
+
+    <div class="date">
+      <strong>05</strong>
+      <span>OCT</span>
+    </div>
+
+    <div>
+      <h4>Credencialización escolar</h4>
+
+      <p>
+        Jornada de toma de fotografía para la
+        credencial escolar del ciclo 2026–2027.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="notice">
+
+    <div class="date">
+      <strong>30</strong>
+      <span>SEP</span>
+    </div>
+
+    <div>
+      <h4>Servicio de alertas escolares</h4>
+
+      <p>
+        Fecha prevista para completar el pago del
+        servicio de credencial y alertas vía WhatsApp.
+      </p>
     </div>
 
   </div>
@@ -566,79 +805,298 @@
 </div>
 
 
-<section id="plantel">
+<!-- INFORMACION DEL PLANTEL -->
 
-  <h2>Información del plantel</h2>
+<div class="school-info" id="plantel">
 
-  <p class="intro">
-    Escuela Secundaria No. 86 “República de Venezuela”.
-  </p>
+<h3>🏫 Información del plantel</h3>
 
-  <div class="datos">
+<div class="info-row">
 
-    <div class="dato">
-      <h3>Datos escolares</h3>
+  <div class="info-icon">🏷️</div>
 
-      <p>
-        <strong>Nombre:</strong>
-        Escuela Secundaria No. 86 “República de Venezuela”
-        <br>
-
-        <strong>CCT:</strong>
-        09DES4086E
-        <br>
-
-        <strong>Turno:</strong>
-        Vespertino
-        <br>
-
-        <strong>Nivel:</strong>
-        Educación Secundaria
-      </p>
-    </div>
-
-
-    <div class="dato">
-      <h3>Contacto</h3>
-
-      <p>
-        <strong>Ubicación:</strong><br>
-        Col. El Santuario, Iztapalapa<br>
-        C.P. 09820, Ciudad de México
-        <br><br>
-
-        <strong>Teléfono:</strong>
-        55 5910 4104
-      </p>
-    </div>
-
+  <div>
+    <strong>CCT</strong>
+    <span>09DES4086E</span>
   </div>
 
-</section>
-
-
-<div class="franja">
-  <strong>“Fe en el estudio”</strong>
 </div>
 
 
-<footer>
+<div class="info-row">
 
-  <img src="escudo-sec86.png" alt="Escudo Secundaria 86">
-
-  <div>
-    <strong>
-      Escuela Secundaria No. 86 “República de Venezuela”
-    </strong>
-  </div>
+  <div class="info-icon">🕒</div>
 
   <div>
-    Turno Vespertino · CCT 09DES4086E
+    <strong>Turno</strong>
+    <span>Vespertino</span>
   </div>
 
-  <div class="pie-secundario">
-    Sitio institucional · Ciclo Escolar 2026–2027
+</div>
+
+
+<div class="info-row">
+
+  <div class="info-icon">📍</div>
+
+  <div>
+    <strong>Ubicación</strong>
+
+    <span>
+      Col. El Santuario, Iztapalapa<br>
+      C.P. 09820, Ciudad de México
+    </span>
+
   </div>
+
+</div>
+
+
+<div class="info-row">
+
+  <div class="info-icon">☎</div>
+
+  <div>
+    <strong>Teléfono</strong>
+    <span>55 5910 4104</span>
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SERVICIOS -->
+
+<div class="services-area" id="servicios">
+
+<div class="container">
+
+<h2 class="section-title">
+Servicios digitales
+</h2>
+
+<p class="section-sub">
+Herramientas e información para nuestra comunidad escolar.
+</p>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">⚙️</div>
+
+<h3>Gestión Escolar</h3>
+
+<p>
+Acceso al sistema institucional de gestión
+y herramientas administrativas del plantel.
+</p>
+
+<a class="btn"
+   href="https://gestion.sec86.com">
+Ingresar
+</a>
+
+</div>
+
+
+<div class="card" id="credencial">
+
+<div class="card-icon">▣</div>
+
+<h3>Credencialización</h3>
+
+<p>
+Información del proceso de credencial escolar,
+código QR y servicios vinculados.
+</p>
+
+<a class="btn gold" href="#">
+Consultar
+</a>
+
+</div>
+
+
+<div class="card" id="alertas">
+
+<div class="card-icon">🔔</div>
+
+<h3>Alertas Escolares</h3>
+
+<p>
+Información sobre las notificaciones escolares
+dirigidas a madres, padres y tutores vía WhatsApp.
+</p>
+
+<a class="btn" href="#">
+Información
+</a>
+
+</div>
+
+
+<div class="card" id="familias">
+
+<div class="card-icon">👨‍👩‍👧</div>
+
+<h3>Madres y Padres</h3>
+
+<p>
+Avisos, orientaciones e información institucional
+para madres, padres y tutores.
+</p>
+
+<a class="btn" href="#">
+Consultar
+</a>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">📚</div>
+
+<h3>Comunidad Escolar</h3>
+
+<p>
+Información académica y recursos de interés
+para nuestra comunidad educativa.
+</p>
+
+<a class="btn" href="#">
+Conocer más
+</a>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">📞</div>
+
+<h3>Contacto</h3>
+
+<p>
+Datos institucionales y medios oficiales de
+comunicación con el plantel.
+</p>
+
+<a class="btn" href="#contacto">
+Ver información
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- IDENTIDAD -->
+
+<div class="identity">
+
+<div class="identity-inner">
+
+<img src="escudo-sec86.png"
+     alt="Escudo Secundaria 86">
+
+<blockquote>
+“Fe en el estudio”
+</blockquote>
+
+<p>
+Escuela Secundaria No. 86
+“República de Venezuela”
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PIE -->
+
+<footer id="contacto">
+
+<div class="footer-inner">
+
+<div>
+
+<div class="footer-brand">
+
+<img src="escudo-sec86.png"
+     alt="Escudo Secundaria 86">
+
+<div>
+<strong>
+Escuela Secundaria No. 86
+</strong>
+
+<p>
+“República de Venezuela”<br>
+Turno Vespertino
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<h4>Información</h4>
+
+<p>
+CCT 09DES4086E
+</p>
+
+<p>
+Educación Secundaria
+</p>
+
+<p>
+Ciudad de México
+</p>
+
+</div>
+
+
+<div>
+
+<h4>Contacto</h4>
+
+<p>
+Col. El Santuario<br>
+Iztapalapa, C.P. 09820
+</p>
+
+<p>
+Tel. 55 5910 4104
+</p>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+Escuela Secundaria No. 86 “República de Venezuela”
+· Turno Vespertino · Ciclo Escolar 2026–2027
+</div>
 
 </footer>
 
